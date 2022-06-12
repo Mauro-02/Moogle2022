@@ -11,8 +11,9 @@ public class Document: Text
         string texto;
 try
  {
-    texto=read.ReadToEnd().ToLower();   //Guarda el contenido del domuneto en un sting
+    texto=read.ReadToEnd().ToLower();   //Guarda el contenido del documento en un sting
     read.Close();
+
 }
   catch (EndOfStreamException error)
         {
@@ -21,7 +22,7 @@ try
 
         }
 
-intoarray(texto);
+FillDictionary(texto);
 
         this.Tittle = Ruta.Split("/")[2]; //("/")[2];                   //le da a las rutas la forma ../Content/arch1.txt
         this.Snippet = texto.Length >= 100 ? texto.Substring(0, 100) : texto;            //si el texto tiene mas de 100 terminos devuelve solo esta cantidad sino me devuelve los que tengan

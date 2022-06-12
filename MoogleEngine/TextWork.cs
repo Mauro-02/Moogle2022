@@ -11,7 +11,7 @@ public Text()
 public Text(string texto)
 {
     diccionario=new Dictionary<string, int>();           //nuevo diccionario
-    intoarray(texto);
+    FillDictionary(texto);
 }
 
 protected string[] Tokenizar(string texto)
@@ -28,7 +28,7 @@ protected string[] Tokenizar(string texto)
 
         return saux.Split(" ");
 }
-protected void intoarray(string texto){
+protected void FillDictionary(string texto){
     var aux =Tokenizar(texto);
 
         for (int i = 0; i < aux.Length; i++)               //comprobar si la palabra ya existe
