@@ -16,7 +16,7 @@ public Text(string texto)
 
 protected string[] Tokenizar(string texto)
 {
-    string saux = texto.ToLower()
+    string aux = texto.ToLower()
                 .Replace('\n', ' ')
                 .Replace('_', ' ')
                 .Replace(',', ' ')
@@ -26,15 +26,14 @@ protected string[] Tokenizar(string texto)
                 .Replace('/', ' ')
                 .Replace('\\', ' ').Trim();
 
-        return saux.Split(" ");
+        return aux.Split(" ",StringSplitOptions.RemoveEmptyEntries);
 }
 protected void FillDictionary(string texto){
     var aux =Tokenizar(texto);
 
         for (int i = 0; i < aux.Length; i++)               //comprobar si la palabra ya existe
         {
-            if (aux[i].Trim() != "")            //A pesar de que ya en Tokenizar quite los " ", vuelvo a comprobar que no exista
-            {
+            
              if (this.diccionario.ContainsKey(aux[i]))      //si existe le sumo 1 a su TF
              {
 
@@ -47,7 +46,7 @@ protected void FillDictionary(string texto){
                 this.diccionario.Add(aux[i], 1);          // Sino, la agrego al diccionario y la inicio con TF == 1
 
              }
-            }
+            
         }
 }
 

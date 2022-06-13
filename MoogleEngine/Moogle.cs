@@ -4,19 +4,30 @@
 public static class Moogle
 {
     public static SearchResult Query(string query) {
-        Text text = new Text(query);          //Coge las palabras del query y las guarda
-        string[] archivos = Directory.GetFiles("../Content", "*.txt");      //Guarda la ruta de cada archivo
-        Document[] documentos= new Document[archivos.Length];
-        for (int i = 0; i < archivos.Length; i++) 
-        {
-            documentos[i]=new Document(archivos[i]);
-        }
-        SearchItem[] items = new SearchItem[3] {
-            new SearchItem("Hello World", "Lorem ipsum dolor sit amet", 0.9f),
-            new SearchItem("Hello World", "Lorem ipsum dolor sit amet", 0.5f),
-            new SearchItem("Hello World", "Lorem ipsum dolor sit amet", 0.1f),
-        };
 
-        return new SearchResult(items, query);
+   Corpus mycorpus = new Corpus("../Content","*.txt",query);  
+         
+        mycorpus.ProcessDocs();
+        mycorpus.FillVocabulary();
+        mycorpus.FillTFIDFMatrix();
+        mycorpus.ProcessQuery();
+
+        var sortList= mycorpus.ProcessScore().OrderByDescending(x=> x.Score);
+         return new SearchResult(sortList.ToArray(), query);
+          
+        // Text text = new Text(query);          //Coge las palabras del query y las guarda
+        // string[] archivos = Directory.GetFiles("../Content", "*.txt");      //Guarda la ruta de cada archivo
+        // Document[] documentos= new Document[archivos.Length];
+        // for (int i = 0; i < archivos.Length; i++) 
+        // {
+        //     documentos[i]=new Document(archivos[i]);
+        // }
+        // SearchItem[] items = new SearchItem[3] {
+        //     new SearchItem("Hello World", "Lorem ipsum dolor sit amet", 0.9f),
+        //     new SearchItem("Hello World", "Lorem ipsum dolor sit amet", 0.5f),
+        //     new SearchItem("Hello World", "Lorem ipsum dolor sit amet", 0.1f),
+        // };
+
+        // return new SearchResult(items, query);
     }
 }
